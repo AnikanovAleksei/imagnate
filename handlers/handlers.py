@@ -58,7 +58,7 @@ async def cmd_start(message: Message):
 @router.message(or_f(F.text == '🗂Каталог', F.text == '/menu'))
 async def catalog(message: Message):
     # Путь к изображению, которое вы хотите отправить
-    image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1262.JPG'
+    image_path = '/root/imagnate/images/IMG_1262.JPG'
     image = FSInputFile(image_path)
     await message.answer_photo(photo=image, caption='Выберите категорию товара', reply_markup=await kb.get_catalog())
 
@@ -68,23 +68,23 @@ async def category_selected(callback: CallbackQuery):
     category_id = int(callback.data.split('_')[1])
     if category_id == IPHONE_CATEGORY_ID:
         device_type = 'iPhone'
-        image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1258.JPG'  # Укажите путь к изображению для iPhone
+        image_path = '/root/imagnate/images/IMG_1258.JPG'  # Укажите путь к изображению для iPhone
         models = await rq.get_models_by_category(IPHONE_CATEGORY_ID)
     elif category_id == IPAD_CATEGORY_ID:
         device_type = 'iPad'
-        image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1259.JPG'  # Укажите путь к изображению для iPad
+        image_path = '/root/imagnate/images/IMG_1259.JPG'  # Укажите путь к изображению для iPad
         models = await rq.get_models_by_category(IPAD_CATEGORY_ID)
     elif category_id == WATCH_CATEGORY_ID:
         device_type = 'Watch'
-        image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1261.JPG'  # Укажите путь к изображению для Watch
+        image_path = '/root/imagnate/images/IMG_1261.JPG'  # Укажите путь к изображению для Watch
         models = await rq.get_models_by_category(WATCH_CATEGORY_ID)
     elif category_id == PODS_CATEGORY_ID:
         device_type = 'AirPods'
-        image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1262.JPG'  # Укажите путь к изображению для AirPods
+        image_path = '/root/imagnate/images/IMG_1262.JPG'  # Укажите путь к изображению для AirPods
         models = await rq.get_models_by_category(PODS_CATEGORY_ID)
     elif category_id == MACBOOK_CATEGORY_ID:
         device_type = 'MacBook'
-        image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1257.JPG'  # Укажите путь к изображению для MacBook
+        image_path = '/root/imagnate/images/IMG_1257.JPG'  # Укажите путь к изображению для MacBook
         models = await rq.get_models_by_category(MACBOOK_CATEGORY_ID)
     else:
         await callback.message.answer('Нет подходящей модели')
@@ -467,7 +467,7 @@ async def screen_size_selected(callback: CallbackQuery):
 
 @router.callback_query(F.data.startswith('back_to_categories'))
 async def back_to_categories(callback: CallbackQuery):
-    image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1262.JPG'
+    image_path = '/root/imagnate/images/IMG_1262.JPG'
     image = FSInputFile(image_path)
     catalog_keyboard = await kb.get_catalog()
     await callback.message.answer_photo(photo=image, caption='Выберите категорию товара', reply_markup=catalog_keyboard)
@@ -530,7 +530,7 @@ async def back_to_memory(callback: CallbackQuery):
 @router.callback_query(F.data == 'back')
 async def back_to_previous(callback: CallbackQuery):
     # Путь к изображению, которое вы хотите отправить
-    image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1262.JPG'  # Замените на ваш путь к изображению
+    image_path = '/root/imagnate/images/IMG_1262.JPG'  # Замените на ваш путь к изображению
     image = FSInputFile(image_path)
 
     # Отправляем изображение
@@ -636,7 +636,7 @@ async def back_to_main(message: Message):
 async def cabinet(message: Message):
     user_id = message.from_user.id
     # Путь к изображению, которое вы хотите отправить
-    image_path = '/Users/rcq/PycharmProjects/222/images/IMG_1403.JPG'
+    image_path = '/root/imagnate/images/IMG_1403.JPG'
     image = FSInputFile(image_path)
     await message.answer_photo(photo=image, caption=f'Ваш ID профиля: {user_id}')
 
