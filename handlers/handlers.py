@@ -1,7 +1,7 @@
 import os
 from aiogram.filters import CommandStart, or_f, Command
 from aiogram.types import Message, CallbackQuery, FSInputFile
-from aiogram import Router, F
+from aiogram import Router, F, Bot
 from sqlalchemy import delete
 from handlers.contact import router as manager_router
 from handlers.help_handlers import router as helper
@@ -27,16 +27,22 @@ router.include_router(unknown_router)
 
 # Обработка приветствия
 @router.message(CommandStart())
-async def cmd_start(message: Message):
+async def cmd_start(message: Message, bot: Bot):
     user_id = message.from_user.id
     username = message.from_user.username
-    telegram_id = message.from_user.id  # Используем telegram_id из message.from_user
+    telegram_id = message.from_user.id
 
     # Создаем пользователя, если он не существует
     await rq.create_user_if_not_exists(user_id, username, telegram_id)
 
     # Получаем клавиатуру
     main_keyboard = await kb.get_main_keyboard()
+
+    # Получаем количество пользователей
+    user_count = await rq.get_user_count()
+
+    # Обновляем описание бота
+    await bot.set_my_description(f"{user_count} пользователей в этом месяце")
 
     await message.answer(
         text=(

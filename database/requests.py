@@ -1,9 +1,22 @@
 from aiogram import Bot
 from database.models import (Category, Item, Basket, Model, Color, Memory, async_session, ScreenSize,
                              Connectivity, RMA, Users)
-from sqlalchemy import select, delete
+from sqlalchemy import select, delete, func
 from typing import List
 from filters.config import ADMIN_IDS
+
+
+async def get_all_users():
+    async with async_session() as session:
+        result = await session.execute(select(Users))
+        users = result.scalars().all()
+        return users
+
+
+async def get_user_count():
+    async with async_session() as session:
+        result = await session.execute(select(func.count(Users.id)).select_from(Users))
+        return result.scalar()
 
 
 async def get_categories() -> List[Category]:
